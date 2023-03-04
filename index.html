@@ -62,9 +62,7 @@
 
    </style>
 			<script>
-function myFunction() {
-    document.getElementById("demo").innerHTML = "Hello World";
-}
+
 
 function IsNumeric(input) {
     var RE = /^-{0,1}\d*\.{0,1}\d+$/;
@@ -99,8 +97,14 @@ function CalculateRisk() {
 
     var lblErrorMsg = document.getElementById('lblErrorMsg');
     var dvMsgError = document.getElementById('dvMsgError');
+	
+	var lblSuccessMsg = document.getElementById('lblSuccessMsg');
+    var dvMsgSuccess = document.getElementById('dvMsgSuccess');
+	
+	var txtScore= document.getElementById('txtScore');
 
-
+	dvMsgSuccess.style.display = "none";
+	dvMsgError.style.display = "none";
 
     if (IsNumeric(txteGFR.value) == true) {
 
@@ -120,9 +124,15 @@ function CalculateRisk() {
 		
 		var totalscore = 0;
 		
-		totalscore = (2*DeGFR) + (1.6 * parseFloat(ddlAcuteHFText)  + (1.2 * parseFloat(ddlHypotensionText)) + (1.2 * parseFloat(ddlNephrotoxicAntibioticsText)) + (1 * parseFloat(ddlAnemiaText));
+		totalscore = (2*DeGFR) + (1.6 * parseFloat(ddlAcuteHFText))  + (1.2 * parseFloat(ddlHypotensionText)) + (1.2 * parseFloat(ddlNephrotoxicAntibioticsText)) + (1 * parseFloat(ddlAnemiaText));
 		 
-		lblErrorMsg.innerText = totalscore.toString();
+		
+		txtScore.value = totalscore.toString();
+		
+
+        dvMsgSuccess.style.display = "block";
+        lblSuccessMsg.innerText = "Calculate successfully.";
+		
 
     } else {
         document.getElementById('txteGFR').value = "";
@@ -152,12 +162,12 @@ function CalculateRisk() {
 					<div class="col-lg-12">
 						<div class="row styleFormUi">
 							<div class="col-lg-12">
-								<div class="alert alert-danger" id="dvMsgError" style="display:block;" role="alert">
+								<div class="alert alert-danger" id="dvMsgError" style="display:none;" role="alert">
 									<b>
 										<p id="lblErrorMsg">ERROR:</p>
 									</b>
 								</div>
-								<div class="alert alert-success" id="dvMsgSuccess" style="display:block;" role="alert">
+								<div class="alert alert-success" id="dvMsgSuccess" style="display:none;" role="alert">
 									<b>
 										<p id="lblSuccessMsg">SUCCESS:</p>
 									</b>
@@ -167,10 +177,7 @@ function CalculateRisk() {
 					</div>
 					<div class="col-lg-12">
 						<div class="row styleFormUi divBox">
-							<div class="col-lg-12 label-header">
-								<button onclick="myFunction()">Click me</button>
-								<p id="demo"/>
-							</div>
+					
 							<div class="col-lg-2">
 								<label for="txteGFR" class="custom-label-for">eGFR</label>
 								<input type="text" id="txteGFR" class="form-control" style="width:150px;"/>
